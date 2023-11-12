@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "sonarsource.sonarlint-vscode",
+    "bradlc.vscode-tailwindcss",
+    "vue.volar",
+    "esbenp.prettier-vscode",
+    "vue.vscode-typescript-vue-plugin",
+    "ms-vsliveshare.vsliveshare",
+    "aaron-bond.better-comments"
+  ]
+}
