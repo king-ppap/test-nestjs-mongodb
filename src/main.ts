@@ -29,7 +29,7 @@ async function bootstrap() {
   // Versioning
   app.enableVersioning({
     type: VersioningType.URI,
-    prefix: 'vn',
+    prefix: 'v',
   });
 
   // CORS

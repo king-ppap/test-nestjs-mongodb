@@ -35,6 +35,12 @@
       ],
       "@adapter/*": [
         "src/adapter/*"
+      ],
+      "@modules": [
+        "src/modules/"
+      ],
+      "@modules/*": [
+        "src/modules/*"
       ]
     }
   }

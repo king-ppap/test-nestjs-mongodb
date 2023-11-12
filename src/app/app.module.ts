@@ -4,6 +4,7 @@ import { LoggerModule } from 'nestjs-pino';
 import { AuthModule } from '../modules/auth/auth.module';
 import { fileLoader, TypedConfigModule } from 'nest-typed-config';
 import { RootConfig } from './config/config';
+import { UsersModule } from '@modules/users/users.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { RootConfig } from './config/config';
       },
     }),
     AuthModule,
+    UsersModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }
