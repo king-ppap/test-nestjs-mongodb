@@ -7,35 +7,35 @@ import { ApiTags } from '@nestjs/swagger';
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+    constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  @Version('1')
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
-  }
+    @Post()
+    @Version('1')
+    create(@Body() createUserDto: CreateUserDto) {
+        return this.usersService.create(createUserDto);
+    }
 
-  @Get()
-  @Version('1')
-  findAll() {
-    return this.usersService.findAll();
-  }
+    @Get()
+    @Version('1')
+    findAll() {
+        return this.usersService.findAll();
+    }
 
-  @Get(':id')
-  @Version('1')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
-  }
+    @Get(':id')
+    @Version('1')
+    findOne(@Param('id') id: string) {
+        return this.usersService.findOne(+id);
+    }
 
-  @Patch(':id')
-  @Version('1')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
-  }
+    @Patch(':id')
+    @Version('1')
+    update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+        return this.usersService.update(+id, updateUserDto);
+    }
 
-  @Delete(':id')
-  @Version('1')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
-  }
+    @Delete(':id')
+    @Version('1')
+    remove(@Param('id') id: string) {
+        return this.usersService.remove(+id);
+    }
 }
