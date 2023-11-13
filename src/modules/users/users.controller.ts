@@ -1,11 +1,26 @@
-import { BadRequestException, Body, ConflictException, Controller, Delete, Get, Logger, Param, Patch, Post, Version } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from '@modules/auth/jwt-auth.guard';
+import {
+    BadRequestException,
+    Body,
+    ConflictException,
+    Controller,
+    Delete,
+    Get,
+    Logger,
+    Param,
+    Patch,
+    Post,
+    UseGuards,
+    Version,
+} from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import * as bcrypt from 'bcrypt';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
 
 @ApiTags('Users')
+@ApiBearerAuth()
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
@@ -35,18 +50,21 @@ export class UsersController {
 
     @Get()
     @Version('1')
+    @UseGuards(JwtAuthGuard)
     findAll() {
         return this.usersService.findAll();
     }
 
     @Get(':id')
     @Version('1')
+    @UseGuards(JwtAuthGuard)
     findOne(@Param('id') id: string) {
         return this.usersService.findOne(id);
     }
 
     @Patch(':id')
     @Version('1')
+    @UseGuards(JwtAuthGuard)
     update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
         return this.usersService
             .update(id, updateUserDto)
@@ -66,6 +84,7 @@ export class UsersController {
 
     @Delete(':id')
     @Version('1')
+    @UseGuards(JwtAuthGuard)
     remove(@Param('id') id: string) {
         return this.usersService.remove(id);
     }
