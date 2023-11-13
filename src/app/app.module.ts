@@ -1,6 +1,7 @@
 import { Logger, Module } from '@nestjs/common';
 import { LoggerModule } from 'nestjs-pino';
 
+import { CountryModule } from '@modules/country/country.module';
 import { UsersModule } from '@modules/users/users.module';
 import { fileLoader, TypedConfigModule } from 'nest-typed-config';
 import { TypegooseModule } from 'nestjs-typegoose';
@@ -38,6 +39,7 @@ import { RootConfig } from './config/config';
             },
         }),
         AuthModule,
+        CountryModule,
         UsersModule,
     ],
 })
