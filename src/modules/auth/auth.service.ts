@@ -1,3 +1,4 @@
+import { UserJwtDto } from '@modules/users/dto/users.dto';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
@@ -16,9 +17,10 @@ export class AuthService {
         if (!result) {
             throw new UnauthorizedException();
         }
-        const payload = {
+        const payload: UserJwtDto = {
             sub: user.id,
             username: user.username,
+            email: user.email,
         };
         return {
             access_token: await this.jwtService.signAsync(payload, { expiresIn: '1d' }),

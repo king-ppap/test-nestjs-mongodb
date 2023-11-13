@@ -20,7 +20,6 @@ import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
 
 @ApiTags('Users')
-@ApiBearerAuth()
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
@@ -51,6 +50,7 @@ export class UsersController {
     @Get()
     @Version('1')
     @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth()
     findAll() {
         return this.usersService.findAll();
     }
@@ -58,6 +58,7 @@ export class UsersController {
     @Get(':id')
     @Version('1')
     @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth()
     findOne(@Param('id') id: string) {
         return this.usersService.findOne(id);
     }
@@ -65,6 +66,7 @@ export class UsersController {
     @Patch(':id')
     @Version('1')
     @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth()
     update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
         return this.usersService
             .update(id, updateUserDto)
@@ -85,6 +87,7 @@ export class UsersController {
     @Delete(':id')
     @Version('1')
     @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth()
     remove(@Param('id') id: string) {
         return this.usersService.remove(id);
     }

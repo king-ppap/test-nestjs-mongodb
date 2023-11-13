@@ -1,5 +1,19 @@
-import { BadRequestException, Body, ConflictException, Controller, Delete, Get, Logger, Param, Patch, Post, Version } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from '@modules/auth/jwt-auth.guard';
+import {
+    BadRequestException,
+    Body,
+    ConflictException,
+    Controller,
+    Delete,
+    Get,
+    Logger,
+    Param,
+    Patch,
+    Post,
+    UseGuards,
+    Version,
+} from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CountryService } from './country.service';
 import { UpdateCountryDto } from './dto/update-country.dto';
 import { Country } from './entities/country.entity';
@@ -12,6 +26,8 @@ export class CountryController {
     private logger = new Logger(CountryController.name);
 
     @Post()
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth()
     @Version('1')
     async create(@Body() country: Country) {
         return this.countryService.create(country).catch((error) => {
@@ -36,6 +52,8 @@ export class CountryController {
     }
 
     @Patch(':id')
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth()
     @Version('1')
     update(@Param('id') id: string, @Body() updateUserDto: UpdateCountryDto) {
         return this.countryService.update(id, updateUserDto).catch((error) => {
@@ -48,6 +66,8 @@ export class CountryController {
     }
 
     @Delete(':id')
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth()
     @Version('1')
     remove(@Param('id') id: string) {
         return this.countryService.remove(id);
