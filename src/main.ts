@@ -1,18 +1,19 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app/app.module';
-import { CorsConfig } from '@config/cors.config';
-import { RootConfig } from '@config/config';
-import { Logger, LoggerErrorInterceptor } from 'nestjs-pino';
 
+import { RootConfig } from '@config/config';
+import { CorsConfig } from '@config/cors.config';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
+import { Logger, LoggerErrorInterceptor } from 'nestjs-pino';
+import { AppModule } from './app/app.module';
 import { CorrelationIdMiddleware } from './middleware/correlation-id.middleware';
+
 import helmet from 'helmet';
 
-import * as basicAuth from 'express-basic-auth';
 import { DocumentBuilder, SwaggerCustomOptions, SwaggerModule } from '@nestjs/swagger';
+import * as basicAuth from 'express-basic-auth';
 
 async function bootstrap() {
-    const app = await NestFactory.create(AppModule, { bufferLogs: true });
+    const app = await NestFactory.create(AppModule, { bufferLogs: true, snapshot: true });
 
     // Get Env
     const { ALLOW_ORIGIN } = await app.resolve(CorsConfig);
