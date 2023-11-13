@@ -34,8 +34,6 @@ import { RootConfig } from './config/config';
             useFactory: async (config: RootConfig) => {
                 return {
                     uri: config.DATABASE_BASE.uri,
-                    useNewUrlParser: true,
-                    useUnifiedTopology: true,
                 };
             },
         }),
