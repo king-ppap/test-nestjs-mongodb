@@ -35,5 +35,5 @@ export class RootConfig {
     @Type(() => DatabaseBaseConfig)
     @ValidateNested()
     @IsDefined()
-    public readonly DatabaseBaseConfig: DatabaseBaseConfig;
+    public readonly DATABASE_BASE: DatabaseBaseConfig;
 }

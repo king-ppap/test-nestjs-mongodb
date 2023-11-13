@@ -1,4 +1,4 @@
-import { getModelForClass, prop } from '@typegoose/typegoose';
+import { prop } from '@typegoose/typegoose';
 
 export class User {
     @prop({ index: true, required: true, unique: true })
@@ -16,5 +16,3 @@ export class User {
     @prop({ required: true })
     public password: string;
 }
-
-export const UserModel = getModelForClass(User);

@@ -1,10 +1,11 @@
 import { Logger, Module } from '@nestjs/common';
 import { LoggerModule } from 'nestjs-pino';
 
-import { AuthModule } from '../modules/auth/auth.module';
-import { fileLoader, TypedConfigModule } from 'nest-typed-config';
-import { RootConfig } from './config/config';
 import { UsersModule } from '@modules/users/users.module';
+import { fileLoader, TypedConfigModule } from 'nest-typed-config';
+import { TypegooseModule } from 'nestjs-typegoose';
+import { AuthModule } from '../modules/auth/auth.module';
+import { RootConfig } from './config/config';
 
 @Module({
     imports: [
@@ -25,6 +26,16 @@ import { UsersModule } from '@modules/users/users.module';
                         level: config.LOG_LEVEL,
                         genReqId: (req) => req.headers['x-correlation-id'],
                     },
+                };
+            },
+        }),
+        TypegooseModule.forRootAsync({
+            inject: [RootConfig],
+            useFactory: async (config: RootConfig) => {
+                return {
+                    uri: config.DATABASE_BASE.uri,
+                    useNewUrlParser: true,
+                    useUnifiedTopology: true,
                 };
             },
         }),
