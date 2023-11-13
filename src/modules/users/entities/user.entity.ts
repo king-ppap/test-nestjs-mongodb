@@ -1,6 +1,7 @@
+import { Country } from '@modules/country/entities/country.entity';
 import { ApiProperty } from '@nestjs/swagger';
-import { prop } from '@typegoose/typegoose';
-import { IsDefined } from 'class-validator';
+import { Ref, prop } from '@typegoose/typegoose';
+import { IsDefined, IsOptional } from 'class-validator';
 
 export class User {
     @ApiProperty()
@@ -24,7 +25,12 @@ export class User {
     public lastname: string;
 
     @ApiProperty()
-    @IsDefined()
+    @IsOptional()
     @prop({ required: false, default: null })
     public email?: string;
+
+    @ApiProperty({ type: 'string' })
+    @IsDefined()
+    @prop({ ref: () => Country })
+    public country: Ref<Country>;
 }
