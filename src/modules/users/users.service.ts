@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { InjectModel } from 'nestjs-typegoose';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
@@ -12,7 +11,7 @@ export class UsersService {
         private readonly userModel: ReturnModelType<typeof User>,
     ) {}
 
-    create(createUserDto: CreateUserDto) {
+    create(createUserDto: User) {
         return this.userModel.create(createUserDto);
     }
 
@@ -20,19 +19,19 @@ export class UsersService {
         return this.userModel.find();
     }
 
-    findOne(id: number) {
-        return this.userModel.findOne({ id });
+    findOne(_id: string) {
+        return this.userModel.findOne({ _id });
     }
 
     findOneWithUsername(username: string) {
         return this.userModel.findOne({ username });
     }
 
-    update(id: number, updateUserDto: UpdateUserDto) {
-        return `This action updates a #${id} user`;
+    update(_id: string, updateUserDto: UpdateUserDto) {
+        return this.userModel.findOneAndUpdate({ _id }, updateUserDto);
     }
 
-    remove(id: number) {
-        return `This action removes a #${id} user`;
+    remove(_id: string): any {
+        return this.userModel.deleteOne({ _id });
     }
 }

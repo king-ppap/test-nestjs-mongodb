@@ -1,5 +1,5 @@
-import { IsBooleanString, IsEmail, IsNumberString, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsEmail, IsNumberString } from 'class-validator';
 
 class UserJwtDto {
     @ApiProperty()

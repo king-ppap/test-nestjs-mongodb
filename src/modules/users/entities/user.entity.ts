@@ -11,6 +11,11 @@ export class User {
     @ApiProperty()
     @IsDefined()
     @prop({ required: true })
+    public password: string;
+
+    @ApiProperty()
+    @IsDefined()
+    @prop({ required: true })
     public firstname: string;
 
     @ApiProperty()
@@ -20,6 +25,6 @@ export class User {
 
     @ApiProperty()
     @IsDefined()
-    @prop({ required: true })
-    public password: string;
+    @prop({ required: false, default: null })
+    public email?: string;
 }

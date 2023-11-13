@@ -1,17 +1,4 @@
-import {
-    Body,
-    ConflictException,
-    Controller,
-    Delete,
-    Get,
-    HttpException,
-    HttpStatus,
-    Logger,
-    Param,
-    Patch,
-    Post,
-    Version,
-} from '@nestjs/common';
+import { BadRequestException, Body, ConflictException, Controller, Delete, Get, Logger, Param, Patch, Post, Version } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import * as bcrypt from 'bcrypt';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -33,14 +20,15 @@ export class UsersController {
         return this.usersService
             .create(createUser)
             .then((res) => {
-                delete res.password;
-                return res;
+                const data = res.toObject();
+                delete data.password;
+                return data;
             })
             .catch((error) => {
                 if (error.code === 11000) {
                     throw new ConflictException('Username already exists');
                 } else {
-                    throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+                    throw new BadRequestException(error.message);
                 }
             });
     }
@@ -54,18 +42,31 @@ export class UsersController {
     @Get(':id')
     @Version('1')
     findOne(@Param('id') id: string) {
-        return this.usersService.findOne(+id);
+        return this.usersService.findOne(id);
     }
 
     @Patch(':id')
     @Version('1')
     update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-        return this.usersService.update(+id, updateUserDto);
+        return this.usersService
+            .update(id, updateUserDto)
+            .then((res) => {
+                const data = res.toObject();
+                delete data.password;
+                return data;
+            })
+            .catch((error) => {
+                if (error.code === 11000) {
+                    throw new ConflictException('Username already exists');
+                } else {
+                    throw new BadRequestException(error.message);
+                }
+            });
     }
 
     @Delete(':id')
     @Version('1')
     remove(@Param('id') id: string) {
-        return this.usersService.remove(+id);
+        return this.usersService.remove(id);
     }
 }
