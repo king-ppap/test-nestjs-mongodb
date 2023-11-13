@@ -5,17 +5,17 @@ import { IsDefined } from 'class-validator';
 export class User {
     @ApiProperty()
     @IsDefined()
-    @prop({ lowercase: true, required: true, unique: true })
+    @prop({ index: true, lowercase: true, required: true, unique: true })
     public username: string;
 
     @ApiProperty()
     @IsDefined()
-    @prop({ required: true, unique: true })
+    @prop({ required: true })
     public firstname: string;
 
     @ApiProperty()
     @IsDefined()
-    @prop({ required: true, unique: true })
+    @prop({ required: true })
     public lastname: string;
 
     @ApiProperty()
